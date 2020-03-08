@@ -36,3 +36,9 @@ ls | while read line;do git -C $line log --log-size 2>/dev/null | grep onokatio 
 curl -Ss 'https://api.github.com/users/onokatio/repos?per_page=100&page=1' | jq -r '.[].name' > list
 cat list|while read line;do echo "<project path=\"$line\" name=\"$line\" />";done >> default.xml
 ```
+
+## check status all
+
+```
+ls | while read line;do echo $line;git -C $line status -s;done
+```
