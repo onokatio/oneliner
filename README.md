@@ -42,3 +42,9 @@ cat list|while read line;do echo "<project path=\"$line\" name=\"$line\" />";don
 ```
 ls | while read line;do echo $line;git -C $line status -s;done
 ```
+
+## shindan marker
+
+```
+curl 'https://shindanmaker.com/123456' -X POST --data "u=$name" -Ss | pup '.result2 div json{}' | jq -r '.[0] | .text'
+```
