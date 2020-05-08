@@ -48,3 +48,9 @@ ls | while read line;do echo $line;git -C $line status -s;done
 ```
 curl 'https://shindanmaker.com/123456' -X POST --data "u=$name" -Ss | pup '.result2 div json{}' | jq -r '.[0] | .text'
 ```
+
+## convert wav directory to flac
+
+```
+find ./hoge/ -name '*\.wav' | while read line;do flac "$line" --compression-level-8 -f -o "$(echo $line | sed -e 's/\.wav$/.flac/')" || sleep 10;done
+```
