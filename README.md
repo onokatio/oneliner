@@ -54,3 +54,9 @@ curl 'https://shindanmaker.com/123456' -X POST --data "u=$name" -Ss | pup '.resu
 ```
 find ./hoge/ -name '*\.wav' | while read line;do flac "$line" --compression-level-8 -f -o "$(echo $line | sed -e 's/\.wav$/.flac/')" || sleep 10;done
 ```
+
+## bulk download emojipacks
+
+```
+cat ../*.yaml | yq -c '.emojis[] | [.name, .src]' | while read line;do wget "$(echo $line|jq -rc .[1])" -o "$(echo $line| jq -rc .[0])"."$(echo $line|jq -rc .[1]| sed -e 's/.*\.\(.*\)$/\1/')";done
+```
