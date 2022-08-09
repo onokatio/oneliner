@@ -60,3 +60,9 @@ find ./hoge/ -name '*\.wav' | while read line;do flac "$line" --compression-leve
 ```
 cat ../*.yaml | yq -c '.emojis[] | [.name, .src]' | while read line;do wget "$(echo $line|jq -rc .[1])" -o "$(echo $line| jq -rc .[0])"."$(echo $line|jq -rc .[1]| sed -e 's/.*\.\(.*\)$/\1/')";done
 ```
+
+## Twitterでリストに追加済みの人をミュートする
+
+```
+twurl --username "onokatio_" "/1.1/lists/ownerships.json?count=1000" | jq -r .lists[].id_str | while read line ;do twurl --username "onokatio_" "/1.1/lists/members.json?count=5000&list_id=$line" | jq -r '.users'  > $line.json;done
+```
