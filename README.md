@@ -66,3 +66,9 @@ cat ../*.yaml | yq -c '.emojis[] | [.name, .src]' | while read line;do wget "$(e
 ```
 twurl --username "onokatio_" "/1.1/lists/ownerships.json?count=1000" | jq -r .lists[].id_str | while read line ;do twurl --username "onokatio_" "/1.1/lists/members.json?count=5000&list_id=$line" | jq -r '.users'  > $line.json;done
 ```
+
+## container.jsonからtmp??-の名前のついたコンテナを削除する
+
+```
+cat containers.json | jq '.identities |= ([.[] | select(.name | test("tmp")==false)] )' | sponge containers.json
+```
